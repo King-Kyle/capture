@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const About = styled.div`
@@ -8,7 +7,7 @@ export const About = styled.div`
   justify-content: space-between;
   padding: 5rem 10rem;
   color: white;
-`
+`;
 
 export const Description = styled.div`
   flex: 1;
@@ -16,7 +15,7 @@ export const Description = styled.div`
   h2 {
     font-weight: lighter;
   }
-`
+`;
 
 export const Image = styled.div`
   flex: 1;
@@ -26,8 +25,8 @@ export const Image = styled.div`
     height: 80vh;
     object-fit: cover;
   }
-`
+`;
 
 export const Hide = styled.div`
   overflow: hidden;
-`
+`;
