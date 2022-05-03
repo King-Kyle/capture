@@ -1,44 +1,52 @@
-import React,{ useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useHistory } from 'react-router';
-import { MovieState } from '../movieState';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useHistory } from "react-router";
+import { MovieState } from "../movieState";
 
 const MovieDetail = () => {
-  const history = useHistory();
-  const url = history.location.pathname;
+  const history = useHistory(); //current path
+  const url = history.location.pathname; //current path name
   const [movies, setMovies] = useState(MovieState);
   const [movie, setMovie] = useState(null);
   //useEffect
   useEffect(() => {
     const currentMovie = movies.filter((stateMovie) => stateMovie.url === url);
-    setMovie(currentMovie[0]);
+    setMovie(currentMovie[0]); // 0 to access array
   }, [movies, url]);
 
   return (
     <>
-    {movie && (
-      <Details>
-        <HeadLine>
-          <h2>{movie.title}</h2>
-          <img src={movie.mainImg} alt="movie" />
-        </HeadLine>
-        <Awards>
-          {movie.awards.map((award) => (
-            <Award title={award.title} description={award.description} key={award.title}/>
-          ))}
-        </Awards>
-        <ImageDisplay>
-          <img src={movie.secondaryImg} alt="movie" />
-        </ImageDisplay>
-      </Details>
-    )}
+      {movie && ( //wrap to avoid null error
+        <Details>
+          <HeadLine>
+            <h2>{movie.title}</h2>
+            <img src={movie.mainImg} alt="movie" />
+          </HeadLine>
+          <Awards>
+            {movie.awards.map(
+              (
+                award //map over award to create multiple
+              ) => (
+                <Award // passdown mapped data as props to component
+                  title={award.title}
+                  description={award.description}
+                  key={award.title}
+                />
+              )
+            )}
+          </Awards>
+          <ImageDisplay>
+            <img src={movie.secondaryImg} alt="movie" />
+          </ImageDisplay>
+        </Details>
+      )}
     </>
-  )
-}
+  );
+};
 
 const Details = styled.div`
   color: white;
-`
+`;
 
 const HeadLine = styled.div`
   min-height: 90vh;
@@ -51,11 +59,11 @@ const HeadLine = styled.div`
     transform: translate(-50%, -10%);
   }
   img {
-    width: 100% ;
+    width: 100%;
     height: 70vh;
     object-fit: cover;
   }
-`
+`;
 
 const Awards = styled.div`
   min-height: 80vh;
@@ -63,7 +71,7 @@ const Awards = styled.div`
   margin: 5rem 10rem;
   align-items: center;
   justify-content: space-around;
-`
+`;
 const AwardStyle = styled.div`
   padding: 5rem;
   h3 {
@@ -78,7 +86,7 @@ const AwardStyle = styled.div`
   p {
     padding: 2rem 0rem;
   }
-`
+`;
 
 const ImageDisplay = styled.div`
   min-height: 50vh;
@@ -87,17 +95,18 @@ const ImageDisplay = styled.div`
     height: 100vh;
     object-fit: cover;
   }
-`
+`;
 
 //Award Component
-const Award = ({title,description}) => {
+const Award = ({ title, description }) => {
+  //access data via props
   return (
     <AwardStyle>
       <h3>{title}</h3>
       <div className="line"></div>
       <p>{description}</p>
     </AwardStyle>
-  )
-}
+  );
+};
 
-export default MovieDetail
+export default MovieDetail;
